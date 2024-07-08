@@ -20,6 +20,8 @@ const AllApartmentsContainer: FunctionComponent<Props> = ({
   useEffect(() => {
     if (userData.apartments?.length === 0) {
       setShowAddNewApartmentButton(true)
+    } else {
+      setShowAddNewApartmentButton(false)
     }
   }, [userData.apartments?.length])
   if (apartmentsToDisplay.length === 0) {
