@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { userDataState } from '@/shared/recoilStates/user-data.state'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -29,7 +30,7 @@ const NavbarContainer: FunctionComponent = () => {
     })
     setIsMenuOpened(false)
     router.push('/')
-  }, [router, setUserData])
+  }, [setUserData])
 
   useEffect(() => {
     if (userData.userEmail !== '' && userData.userId !== '') {

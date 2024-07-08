@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import AllApartmentsContainer from '@/components/AllApartmentsContainer'
 import { userDataState } from '@/shared/recoilStates/user-data.state'
 import { NextPage } from 'next'
-import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { supabase } from '../../../supabase'
 import dayjs from 'dayjs'
@@ -78,11 +79,11 @@ const ProfilePage: NextPage = () => {
       setShowFilterSection(false)
     }
   }, [userData.apartments])
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (userData.userId === '' && userData.userEmail === '') {
       router.push('./')
     }
-  }, [router, userData.userEmail, userData.userId])
+  }, [userData.userEmail, userData.userId])
   return (
     <div className='w-full h-full relative'>
       {showFilterSection && (

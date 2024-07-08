@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { NextPage } from 'next'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRecoilValue } from 'recoil'
 import { userDataState } from '@/shared/recoilStates/user-data.state'
@@ -11,13 +12,13 @@ const LandingPage: NextPage = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (userAuthData.userId !== '' && userAuthData.userEmail !== '') {
       router.push('./profile')
     } else {
       setIsLoading(false)
     }
-  }, [router, userAuthData.userEmail, userAuthData.userId])
+  }, [userAuthData.userEmail, userAuthData.userId])
 
   return (
     <div className='relative isolate px-6 pt-14 lg:px-8'>

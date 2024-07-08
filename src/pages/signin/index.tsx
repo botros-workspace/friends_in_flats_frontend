@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { NextPage } from 'next'
 import React, { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
@@ -87,7 +88,7 @@ const SigninPage: NextPage = () => {
         visible: true,
       })
     }
-  }, [alert, authData.email, authData.password, router, setUserhData])
+  }, [alert, authData.email, authData.password, setUserhData])
 
   useEffect(() => {
     if (alert.visible) {

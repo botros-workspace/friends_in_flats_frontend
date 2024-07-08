@@ -1,4 +1,5 @@
-import React, { FunctionComponent, ReactNode, useLayoutEffect } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { FunctionComponent, ReactNode, useEffect } from 'react'
 import NavbarContainer from './NavbarContainer'
 import { useRecoilValue } from 'recoil'
 import { userDataState } from '@/shared/recoilStates/user-data.state'
@@ -11,11 +12,12 @@ type Props = {
 export const Layout: FunctionComponent<Props> = ({ children }) => {
   const userAuthData = useRecoilValue(userDataState)
   const router = useRouter()
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     if (userAuthData.userId !== '' && userAuthData.userEmail !== '') {
       router.push('./profile')
     }
-  }, [router, userAuthData.userEmail, userAuthData.userId])
+  }, [userAuthData.userEmail, userAuthData.userId])
   return (
     <div
       style={{
