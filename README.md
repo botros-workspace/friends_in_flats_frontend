@@ -1,5 +1,17 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Project Overview
+
+This Next.js project allows users to register, create apartments, and add rooms to those apartments. The project uses Recoil and Recoil Persist for state management, Tailwind CSS for styling, React Icons for icons, and Supabase for the backend.
+
+## Implemented Features and Functionalities
+
+- Persistent State: The application remembers the user's session, so they remain logged in even after refreshing the page or reopening the tab.
+- Input Validation and Error Alerts: Input fields are validated, and users are alerted to any errors.
+- Loading Indicators: Loading indicators are displayed during data fetching or processing.
+- Image Error Handling: Error indicators are shown if images fail to load.
+- Responsive Design: The application is fully responsive, providing an optimal experience on both desktop and mobile devices.
+
 ## Getting Started
 
 First, run the development server:
