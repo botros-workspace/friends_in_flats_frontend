@@ -366,7 +366,7 @@ const AddNewRoomModal: FunctionComponent<Props> = ({
                   >
                     <div> Equipments:</div>
                     <div className='flex flex-row gap-2'>
-                      <div className='text-blue-500 border-2 px-2 rounded-lg w-36 flex items-center justify-center'>
+                      <div className='text-blue-500 border-2 px-2 rounded-lg flex items-center justify-center'>
                         {newRoom.equipments_array.length}{' '}
                         {newRoom.equipments_array.length === 1
                           ? 'item'
