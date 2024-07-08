@@ -63,7 +63,6 @@ const ProfilePage: NextPage = () => {
 
   useEffect(() => {
     fetchApartments()
-    console.log('fetching')
   }, [])
   useEffect(() => {
     if (userData.apartments !== undefined) {
