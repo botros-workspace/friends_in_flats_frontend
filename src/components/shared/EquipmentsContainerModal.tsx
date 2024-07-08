@@ -32,7 +32,7 @@ const EquipmentsContainerModal: FunctionComponent<Props> = ({
             className='relative transform overflow-hidden w-full  rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-lg data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95 absolute top-0 left-0 right-0'
           >
             <div>
-              <div className='w-full flex justify-center items-center gap-4 min-h-72 flex-wrap py-6'>
+              <div className='w-full flex justify-center items-center gap-4 flex-wrap py-6 my-4'>
                 {equipments.map((singleEquipment, index) => {
                   return (
                     <div
@@ -53,7 +53,7 @@ const EquipmentsContainerModal: FunctionComponent<Props> = ({
                   )
                 })}
               </div>
-              <div className='w-full flex justify-center py-4'>
+              <div className='w-full flex justify-center pb-6'>
                 <button
                   type='button'
                   className='flex w-72 justify-center items-center rounded-md bg-red-700 px-3 py-2 text-sm font-semibold text-white shadow-lg shadow-red-500 hover:shadow-red-800 hover:bg-red-600'
