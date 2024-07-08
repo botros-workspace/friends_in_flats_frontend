@@ -23,10 +23,12 @@ import { allCitiesArray } from '@/shared/constants/CitiesArray'
 
 type Props = {
   setApartmentsToDisplay: (value: ApartmentAttributes[]) => void
+  setShowSkeletonLoader: (value: boolean) => void
 }
 
 const ApartmentsFilterSectionContainer: FunctionComponent<Props> = ({
   setApartmentsToDisplay,
+  setShowSkeletonLoader,
 }) => {
   const userData = useRecoilValue(userDataState)
   const [shouldResetCity, setShouldResetCity] = useState(false)
@@ -40,6 +42,7 @@ const ApartmentsFilterSectionContainer: FunctionComponent<Props> = ({
     visible: false,
   })
   const handleApplyFilterClick = useCallback(async () => {
+    setShowSkeletonLoader(true)
     let apartments_array: ApartmentAttributes[] = []
     if (filterState.city === '') {
       let { data, error } = await supabase
@@ -110,13 +113,22 @@ const ApartmentsFilterSectionContainer: FunctionComponent<Props> = ({
       }
     }
     setApartmentsToDisplay(apartments_array)
-  }, [alert, filterState, setApartmentsToDisplay])
+    setShowSkeletonLoader(false)
+  }, [
+    alert,
+    filterState.city,
+    filterState.from_price,
+    filterState.to_price,
+    setApartmentsToDisplay,
+    setShowSkeletonLoader,
+  ])
   const handleResetFilterClick = useCallback(async () => {
     if (userData.apartments === undefined) return
     setFilterState(initialFilterState)
     setApartmentsToDisplay(userData.apartments)
     setShouldResetCity(true)
-  }, [setApartmentsToDisplay, userData.apartments])
+    setShowSkeletonLoader(false)
+  }, [setApartmentsToDisplay, setShowSkeletonLoader, userData.apartments])
 
   useEffect(() => {
     if (alert.visible) {

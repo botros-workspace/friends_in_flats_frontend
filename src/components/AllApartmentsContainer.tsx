@@ -4,13 +4,16 @@ import { ApartmentAttributes } from '@/shared/interfaces/ApartmentAttributes'
 import SingleApartmentPreviewContainer from './SingleApartmentPreviewContainer'
 import { useRecoilValue } from 'recoil'
 import { userDataState } from '@/shared/recoilStates/user-data.state'
+import ApartmentPreviewSkeleton from './shared/ApartmentPreviewSkeleton'
 
 type Props = {
   apartmentsToDisplay: ApartmentAttributes[]
+  showSkeletonLoader: boolean
 }
 
 const AllApartmentsContainer: FunctionComponent<Props> = ({
   apartmentsToDisplay,
+  showSkeletonLoader,
 }) => {
   const userData = useRecoilValue(userDataState)
   const [showAddNewApartmentModal, setShowAddNewApartmentModal] =
@@ -46,6 +49,13 @@ const AllApartmentsContainer: FunctionComponent<Props> = ({
             />
           </>
         )}
+      </div>
+    )
+  }
+  if (showSkeletonLoader) {
+    return (
+      <div className='flex flex-wrap w-full h-full pt-5 pb-10 px-10 gap-8 justify-center'>
+        <ApartmentPreviewSkeleton />
       </div>
     )
   }

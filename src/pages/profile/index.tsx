@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 
 const ProfilePage: NextPage = () => {
   const [userData, setUserData] = useRecoilState(userDataState)
+  const [showSkeletonLoader, setShowSkeletonLoader] = useState(true)
   const router = useRouter()
   const [apartmentsToDisplay, setApartmentsToDisplay] = useState<
     ApartmentAttributes[]
@@ -49,6 +50,7 @@ const ProfilePage: NextPage = () => {
           apartments: apartments_array,
         })
         setApartmentsToDisplay(apartments_array)
+        setShowSkeletonLoader(false)
       }
     } catch (error: any) {
       setUserData({
@@ -66,6 +68,7 @@ const ProfilePage: NextPage = () => {
   useEffect(() => {
     if (userData.apartments !== undefined) {
       setApartmentsToDisplay(userData.apartments)
+      setShowSkeletonLoader(false)
     }
   }, [userData.apartments])
   useEffect(() => {
@@ -86,11 +89,15 @@ const ProfilePage: NextPage = () => {
         <div>
           <ApartmentsFilterSectionContainer
             setApartmentsToDisplay={setApartmentsToDisplay}
+            setShowSkeletonLoader={setShowSkeletonLoader}
           />
         </div>
       )}
       <div>
-        <AllApartmentsContainer apartmentsToDisplay={apartmentsToDisplay} />
+        <AllApartmentsContainer
+          apartmentsToDisplay={apartmentsToDisplay}
+          showSkeletonLoader={showSkeletonLoader}
+        />
       </div>
     </div>
   )
