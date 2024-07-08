@@ -30,6 +30,7 @@ const AddNewRoomModal: FunctionComponent<Props> = ({
   apartment_id,
 }) => {
   const [isLoading, setIsLoading] = useState(false)
+  const [image_url, setImage_url] = useState('')
   const [isImageLoading, setIsImageLoading] = useState(false)
   const [userData, setUserData] = useRecoilState(userDataState)
   const [showEquipments, setShowEquipments] = useState<boolean>(false)
@@ -73,10 +74,7 @@ const AddNewRoomModal: FunctionComponent<Props> = ({
               .getPublicUrl(`roomImage_${apartment_id}_${date}`)
 
             if (publicUrl) {
-              setNewRoom({
-                ...newRoom,
-                image_url: publicUrl.publicUrl,
-              })
+              setImage_url(publicUrl.publicUrl)
             }
           }
         } catch (error: any) {
@@ -89,7 +87,7 @@ const AddNewRoomModal: FunctionComponent<Props> = ({
         }
       }
     },
-    [alert, apartment_id, newRoom]
+    [alert, apartment_id]
   )
   const handleRoomSubmitClick = useCallback(async () => {
     if (userData.apartments === undefined) return
@@ -102,7 +100,7 @@ const AddNewRoomModal: FunctionComponent<Props> = ({
       })
       return
     }
-    if (newRoom.image_url === '') {
+    if (image_url === '') {
       setAlert({
         ...alert,
         type: 'error',
@@ -138,7 +136,7 @@ const AddNewRoomModal: FunctionComponent<Props> = ({
             apartment_id: apartment_id,
             name: newRoom.name,
             size: newRoom.size,
-            image_url: newRoom.image_url,
+            image_url: image_url,
             equipments_array: newRoom.equipments_array,
           },
         ])
@@ -177,15 +175,15 @@ const AddNewRoomModal: FunctionComponent<Props> = ({
       setShowAddNewRoomModal(false)
     }
   }, [
+    userData,
+    newRoom.name,
+    newRoom.equipments_array,
+    newRoom.size,
+    image_url,
     alert,
     apartment_id,
-    newRoom.equipments_array,
-    newRoom.name,
-    newRoom.image_url,
-    newRoom.size,
-    setShowAddNewRoomModal,
     setUserData,
-    userData,
+    setShowAddNewRoomModal,
   ])
 
   useEffect(() => {
@@ -207,6 +205,7 @@ const AddNewRoomModal: FunctionComponent<Props> = ({
         image_url: '',
         created_at: '',
       })
+      setImage_url('')
       setShowEquipments(false)
     }
   }, [showAddNewRoomModal])
@@ -234,10 +233,10 @@ const AddNewRoomModal: FunctionComponent<Props> = ({
           >
             <div className='flex gap-4 flex-col'>
               <div className='w-full h-full flex flex-col justify-center items-center'>
-                {newRoom.image_url ? (
+                {image_url ? (
                   <div className='flex flex-col justify-center items-center h-96 pt-4 w-full relative '>
                     <Image
-                      src={isError ? '/image_error.avif' : newRoom.image_url}
+                      src={isError ? '/image_error.avif' : image_url}
                       width={150}
                       height={150}
                       style={{
@@ -248,16 +247,13 @@ const AddNewRoomModal: FunctionComponent<Props> = ({
                         maxHeight: '100%',
                         borderRadius: '2%',
                       }}
-                      alt={newRoom.image_url}
+                      alt={image_url}
                       onLoad={() => setIsImageLoading(false)}
                       onError={() => setIsError(true)}
                     />
                     <button
                       onClick={() => {
-                        setNewRoom({
-                          ...newRoom,
-                          image_url: '',
-                        })
+                        setImage_url('')
                       }}
                       className='mt-4 px-4 py-2 text-red-600 text-4xl rounded hover:text-red-400 absolute top-0 right-2'
                     >
