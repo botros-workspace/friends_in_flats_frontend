@@ -71,6 +71,8 @@ const ProfilePage: NextPage = () => {
   useEffect(() => {
     if (userData.apartments?.length !== 0) {
       setShowFilterSection(true)
+    } else {
+      setShowFilterSection(false)
     }
   }, [userData.apartments])
   useLayoutEffect(() => {
