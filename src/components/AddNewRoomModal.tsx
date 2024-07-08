@@ -434,7 +434,7 @@ const AddNewRoomModal: FunctionComponent<Props> = ({
             <div className=' flex gap-4 lg:gap-1 flex-col  px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
               <button
                 type='button'
-                className='flex w-full justify-center items-center rounded-md bg-gray-300 px-3 py-2 min-w-20 h-9 text-sm font-semibold text-gray-900 shadow-sm  sm:ml-3 sm:w-auto hover:bg-gray-500 hover:text-gray-100'
+                className='flex w-full sm:w-auto justify-center items-center rounded-md bg-gray-700 px-3 py-2 text-sm font-semibold text-white shadow-lg shadow-gray-500 hover:shadow-gray-800 hover:bg-gray-600'
                 onClick={handleRoomSubmitClick}
                 data-autofocus
               >

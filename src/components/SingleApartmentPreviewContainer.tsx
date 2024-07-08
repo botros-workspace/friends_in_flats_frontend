@@ -13,6 +13,7 @@ import { supabase } from '../../supabase'
 import { RiDeleteBin5Line } from 'react-icons/ri'
 import { useRecoilState } from 'recoil'
 import { userDataState } from '@/shared/recoilStates/user-data.state'
+import DeleteConfirmationModal from './shared/DeleteConfirmationModal'
 
 type Props = {
   singleApartment: ApartmentAttributes
@@ -21,6 +22,8 @@ const SingleApartmentPreviewContainer: FunctionComponent<Props> = ({
   singleApartment,
 }) => {
   const [showAddNewRoomModal, setShowAddNewRoomModal] = useState(false)
+  const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
+    useState(false)
   const [userData, setUserData] = useRecoilState(userDataState)
 
   const handleDeleteClick = useCallback(async () => {
@@ -37,6 +40,7 @@ const SingleApartmentPreviewContainer: FunctionComponent<Props> = ({
         ),
       })
     }
+    setShowDeleteConfirmationModal(false)
   }, [setUserData, singleApartment.id, userData])
   return (
     <div>
@@ -45,6 +49,14 @@ const SingleApartmentPreviewContainer: FunctionComponent<Props> = ({
         setShowAddNewRoomModal={setShowAddNewRoomModal}
         apartment_id={singleApartment.id}
       />
+      {showDeleteConfirmationModal && (
+        <DeleteConfirmationModal
+          message='Are you sure you want to delete this apartment?'
+          onDeleteConfirmClick={handleDeleteClick}
+          showDeleteConfirmationModal={showDeleteConfirmationModal}
+          setShowDeleteConfirmationModal={setShowDeleteConfirmationModal}
+        />
+      )}
       <div className='flex flex-col bg-white rounded-lg gap-2 shadow-md w-80 md:w-96 border-gray-400 border-2'>
         <div className='h-72 w-full'>
           <RoomsPreviewContainer allRooms={singleApartment.rooms} />
@@ -66,7 +78,7 @@ const SingleApartmentPreviewContainer: FunctionComponent<Props> = ({
               </Tooltip>
               <Tooltip text='Delete apartment'>
                 <button
-                  onClick={handleDeleteClick}
+                  onClick={() => setShowDeleteConfirmationModal(true)}
                   className='bg-red-500 text-white p-1 rounded-full w-8 h-8 items-center justify-center flex text-xl'
                 >
                   <RiDeleteBin5Line />
