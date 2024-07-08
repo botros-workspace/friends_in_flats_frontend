@@ -235,9 +235,12 @@ const SignupPage: NextPage = () => {
             </button>
           </div>
 
-          <p className='mt-10 text-center text-sm text-gray-500'>
-            Already have an account? <Link href={'/signin'}>Sign in</Link>
-          </p>
+          <div className='flex flex-row w-full justify-center items-center gap-1 mt-10 text-center text-sm text-gray-500'>
+            Already have an account?
+            <p className='font-semibold leading-6 text-indigo-600 hover:text-indigo-500'>
+              <Link href={'/signin'}>Sign in</Link>
+            </p>
+          </div>
           {alert.visible && (
             <AlertContainer type={alert.type} message={alert.message} />
           )}
