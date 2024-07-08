@@ -40,14 +40,32 @@ const ApartmentsFilterSectionContainer: FunctionComponent<Props> = ({
     visible: false,
   })
   const handleApplyFilterClick = useCallback(async () => {
-    try {
-      let { data: apartments, error } = await supabase
+    let apartments_array: ApartmentAttributes[] = []
+    if (filterState.city === '') {
+      let { data, error } = await supabase
         .from('apartments')
         .select('*, rooms(*)')
         .gte('price', filterState.from_price)
         .lte('price', filterState.to_price)
-        .eq('city', filterState.city.toLowerCase())
-
+      if (data) {
+        apartments_array = data.map((singleApartment) => {
+          return {
+            id: singleApartment.id,
+            name: singleApartment.name,
+            street: singleApartment.street,
+            building_number: singleApartment.building_number,
+            apartment_number: singleApartment.apartment_number,
+            postal_code: singleApartment.postal_code,
+            city: singleApartment.city,
+            country: singleApartment.country,
+            user_id: singleApartment.user_id,
+            price: singleApartment.price,
+            description: singleApartment.description,
+            rooms: singleApartment.rooms,
+            created_at: dayjs(singleApartment.created_at).format('MMM D, YYYY'),
+          }
+        })
+      }
       if (error) {
         setAlert({
           ...alert,
@@ -56,38 +74,42 @@ const ApartmentsFilterSectionContainer: FunctionComponent<Props> = ({
           visible: true,
         })
       }
-      if (apartments) {
-        const apartments_array: ApartmentAttributes[] = apartments.map(
-          (singleApartment) => {
-            return {
-              id: singleApartment.id,
-              name: singleApartment.name,
-              street: singleApartment.street,
-              building_number: singleApartment.building_number,
-              apartment_number: singleApartment.apartment_number,
-              postal_code: singleApartment.postal_code,
-              city: singleApartment.city,
-              country: singleApartment.country,
-              user_id: singleApartment.user_id,
-              price: singleApartment.price,
-              description: singleApartment.description,
-              rooms: singleApartment.rooms,
-              created_at: dayjs(singleApartment.created_at).format(
-                'MMM D, YYYY'
-              ),
-            }
+    } else {
+      let { data, error } = await supabase
+        .from('apartments')
+        .select('*, rooms(*)')
+        .gte('price', filterState.from_price)
+        .lte('price', filterState.to_price)
+        .eq('city', filterState.city.toLowerCase())
+      if (data) {
+        apartments_array = data.map((singleApartment) => {
+          return {
+            id: singleApartment.id,
+            name: singleApartment.name,
+            street: singleApartment.street,
+            building_number: singleApartment.building_number,
+            apartment_number: singleApartment.apartment_number,
+            postal_code: singleApartment.postal_code,
+            city: singleApartment.city,
+            country: singleApartment.country,
+            user_id: singleApartment.user_id,
+            price: singleApartment.price,
+            description: singleApartment.description,
+            rooms: singleApartment.rooms,
+            created_at: dayjs(singleApartment.created_at).format('MMM D, YYYY'),
           }
-        )
-        setApartmentsToDisplay(apartments_array)
+        })
       }
-    } catch (error: any) {
-      setAlert({
-        ...alert,
-        type: 'error',
-        message: error.message,
-        visible: true,
-      })
+      if (error) {
+        setAlert({
+          ...alert,
+          type: 'error',
+          message: 'Search failed',
+          visible: true,
+        })
+      }
     }
+    setApartmentsToDisplay(apartments_array)
   }, [alert, filterState, setApartmentsToDisplay])
   const handleResetFilterClick = useCallback(async () => {
     if (userData.apartments === undefined) return
