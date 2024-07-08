@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Project live demo
+
+https://friends-in-flats-frontend.vercel.app
+
 ## Project Overview
 
 This Next.js project allows users to register, create apartments, and add rooms to those apartments. The project uses Recoil and Recoil Persist for state management, Tailwind CSS for styling, React Icons for icons, and Supabase for the backend.
@@ -11,6 +15,8 @@ This Next.js project allows users to register, create apartments, and add rooms 
 - Loading Indicators: Loading indicators are displayed during data fetching or processing.
 - Image Error Handling: Error indicators are shown if images fail to load.
 - Responsive Design: The application is fully responsive, providing an optimal experience on both desktop and mobile devices.
+- Secure Landlord Onboarding: Authentication using Supabase Auth ensures that only authorized landlords can register and manage properties.
+- Apartment Search Functionality: Users can filter apartments by location or price or even both, making it easy to find suitable options.
 
 ## Getting Started
 
