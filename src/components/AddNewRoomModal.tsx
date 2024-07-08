@@ -93,7 +93,6 @@ const AddNewRoomModal: FunctionComponent<Props> = ({
   )
   const handleRoomSubmitClick = useCallback(async () => {
     if (userData.apartments === undefined) return
-    setIsLoading(true)
     if (newRoom.name === '') {
       setAlert({
         ...alert,
@@ -131,6 +130,7 @@ const AddNewRoomModal: FunctionComponent<Props> = ({
       return
     }
     try {
+      setIsLoading(true)
       const { data, error } = await supabase
         .from('rooms')
         .insert([

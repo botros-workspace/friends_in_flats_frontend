@@ -15,7 +15,7 @@ const Tooltip: FunctionComponent<Props> = ({ children, text }) => {
     >
       {children}
       {visible && (
-        <div className='capitalize absolute bottom-full mb-2 -right-5 w-max px-2 py-1 bg-gray-700 text-white text-sm rounded'>
+        <div className='capitalize absolute bottom-full mb-2 right-auto w-max px-2 py-1 bg-gray-700 text-white text-sm rounded'>
           {text}
         </div>
       )}
